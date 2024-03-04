@@ -16,7 +16,9 @@ We then test their performance by feeding them 25000 test samples, where they gu
 After this process the results are printed: accuracy score, precision, recall, 
 F1 score and training, testing accuracy in the form of a curve
 
+
 ### Part A
+
 
 
 #### ID3:
@@ -52,6 +54,31 @@ and the property it is testing, then recursively calls itself on the correspondi
 We decided to create the random forest algorithm since it builds on id3.
 Therefore we decided to decide to use random forest to build the random forest algorithm.
 Similarly there is the init that stores values like number of trees, min samples, max depth as before
+
+
+
+### Part B
+
+For part B we created the same algorithms id3, random forest using the sklearn library to compare their results.
+
+Id3:
+The command to create the id3 tree is
+ID3 = DecisionTreeClassifier(max_depth=depth, criterion='entropy', max_features=0.6, splitter='best')
+Where depth is 5 and we achieved accuracy (0.69)
 The fit creates as many id3 trees as NumofTrees and gives each child random properties (xtrain, ytrain), where it calls the fit of id3
 Predict goes to all trees and calls the corresponding id3 predict and for each prediction finds the most frequent answer.
 For the random forest algorithm we set the depth to 5 and the number of trees to 4 because it achieves maximum accuracy (0.68) in a reasonable amount of time
+
+Random Forest:
+The command to create the id3 tree is RForest = RandomForestClassifier(n_estimators=trees) where trees is 4 and we achieved accuracy (0.70)
+
+
+
+### Part C
+
+For part C we created an RNN in the following way:
+We took the maximum number of words from the imdb dataset.
+We made pad the words which are in the form of numbers so that we could embed them because they need to have a common shape
+First we create a sequential model with an embedding layer that has as input the imdb dataset of 20000 words. Then we put a lstm with tanh layer function, characteristic of rnn with 64 units (optimal number). Then there is a dropout layer, and finally a dense one so that the answer is 1 or 0
+For compilation we use the rmsprop optimizer which works very well and binary_crossentropy for loss. 5 epochs is enough and the batch size is 64 for maximum accuracy in normal time (with ipyn we achieved <30 seconds or so per epoch and an accuracy of 0.93).
+Finally we fit and evaluate and print the results, with the plot_keras_history library
